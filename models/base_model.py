@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""BaseModel module"""
+
+
 import uuid
 from datetime import datetime
 
@@ -7,10 +11,18 @@ class BaseModel:
         for other classes
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                if (key == "__class__"):
+                    continue
+                if (key == "created_at" or key == "updated_at"):
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                setattr(self, key, value)
 
     def __str__(self):
         streeng = "[" + str(self.__class__.__name__) + "] ("
