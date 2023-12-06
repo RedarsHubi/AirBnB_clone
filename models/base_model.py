@@ -4,7 +4,7 @@
 
 import uuid
 from datetime import datetime
-from models import storage
+import models
 
 class BaseModel:
     """defines all common attributes and methods
@@ -24,7 +24,7 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 setattr(self, key, value)
         else:
-            storage.new(self)
+           models.storage.new(self)
 
     def __str__(self):
         streeng = "[" + str(self.__class__.__name__) + "] ("
@@ -33,7 +33,7 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()
