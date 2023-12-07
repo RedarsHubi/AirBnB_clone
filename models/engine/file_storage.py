@@ -20,10 +20,8 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
         serialized_objects = {}
-        print("save method is called")
         for key, obj in FileStorage.__objects.items():
             if isinstance(obj, BaseModel):
-                print("obj to be saved")
                 serialized_objects[key] = obj.to_dict()
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(serialized_objects, f)
