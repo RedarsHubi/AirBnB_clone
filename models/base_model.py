@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """BaseModel module"""
 
-
 import uuid
 from datetime import datetime
 import models
+
 
 class BaseModel:
     """defines all common attributes and methods

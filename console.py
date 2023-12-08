@@ -10,7 +10,15 @@ class HBNBCommand(cmd.Cmd):
     """Command Line Interpreter"""
 
     prompt = "(hbnb) "
-    all_classes = {"BaseModel"}
+    all_classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
 
     def do_quit(self, args):
         """Quits program"""
@@ -87,7 +95,6 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, args):
         """Updates an instance based on the class name and id"""
 
-
         arg = args.split()
         if not args:
             print("** class name missing **")
@@ -95,22 +102,23 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(arg) < 2:
             print("** instance id missing **")
-        elif len (arg) < 3:
+        elif len(arg) < 3:
             print("** attribute name missing **")
-        elif len (arg) < 4:
+        elif len(arg) < 4:
             print("** value missing **")
-        elif len (arg) > 4:
+        elif len(arg) > 4:
             return
         else:
             all_objs = storage.all()
             for key, value in all_objs.items():
                 if value.id == arg[1].strip():
                     if hasattr(value, arg[2]):
-                        setattr(storage._FileStorage__objects[key], arg[2],arg[3])
+                        setattr(storage._FileStorage__objects[key],
+                                arg[2], arg[3])
                         storage.save()
                         return
             print("** no instance found **")
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

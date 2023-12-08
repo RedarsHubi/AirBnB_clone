@@ -21,8 +21,7 @@ class FileStorage:
         """Serializes __objects to the JSON file (path: __file_path)."""
         serialized_objects = {}
         for key, obj in FileStorage.__objects.items():
-            if isinstance(obj, BaseModel):
-                serialized_objects[key] = obj.to_dict()
+            serialized_objects[key] = obj.to_dict()
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(serialized_objects, f)
 
