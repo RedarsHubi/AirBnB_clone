@@ -34,6 +34,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
         A2 = BaseModel()
         self.assertNotEqual(A1.created_at, A2.created_at)
 
+
 class TestBaseModel_to_dict(unittest.TestCase):
     """Unittests of to_dict method"""
 
@@ -51,6 +52,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
         A = BaseModel()
         with self.assertRaises(TypeError):
             A.to_dict(None)
+
 
 class TestBaseModel_save(unittest.TestCase):
     """Unittests for save() method"""
@@ -90,6 +92,7 @@ class TestBaseModel_save(unittest.TestCase):
         A.save()
         with open("file.json", "r") as f:
             self.assertIn("BaseModel." + A.id, f.read())
+
 
 if __name__ == "__main__":
     unittest.main()
