@@ -1,58 +1,61 @@
-"""Defines unittests for models/base_model.py.
+#!/usr/bin/python3
+"""Defines unittests for models/amenity.py.
 
 Unittest classes:
-    TestBaseModel_instantiation
+    TestAmenity_instantiation
 """
 import os
 import models
 import unittest
 from datetime import datetime
 from time import sleep
-from models.base_model import BaseModel
+from models.amenity import Amenity
 
 
-class TestBaseModel_instantiation(unittest.TestCase):
-    """Unittests for BaseModel class."""
+class TestAmenity_instantiation(unittest.TestCase):
+    """Unittests for Amenity class."""
 
     def test_id_str(self):
-        self.assertEqual(str, type(BaseModel().id))
+        self.assertEqual(str, type(Amenity().id))
 
     def test_created_at_datetime(self):
-        self.assertEqual(datetime, type(BaseModel().created_at))
+        self.assertEqual(datetime, type(Amenity().created_at))
 
     def test_updated_at_datetime(self):
-        self.assertEqual(datetime, type(BaseModel().updated_at))
+        self.assertEqual(datetime, type(Amenity().updated_at))
 
     def test_unique_ids(self):
-        A1 = BaseModel()
-        A2 = BaseModel()
+        A1 = Amenity()
+        A2 = Amenity()
         self.assertNotEqual(A1.id, A2.id)
 
     def test_datetime(self):
-        A1 = BaseModel()
+        A1 = Amenity()
         sleep(0.1)
-        A2 = BaseModel()
+        A2 = Amenity()
         self.assertNotEqual(A1.created_at, A2.created_at)
 
-class TestBaseModel_to_dict(unittest.TestCase):
+
+class TestAmenity_to_dict(unittest.TestCase):
     """Unittests of to_dict method"""
 
     def test_dict_type(self):
-        A = BaseModel()
+        A = Amenity()
         self.assertTrue(dict, type(A.to_dict()))
 
     def test_keys_attributes(self):
-        A = BaseModel()
+        A = Amenity()
         A.my_number = 98
         self.assertIn("id", A.to_dict())
         self.assertIn("my_number", A.to_dict())
 
     def test_no_arg(self):
-        A = BaseModel()
+        A = Amenity()
         with self.assertRaises(TypeError):
             A.to_dict(None)
 
-class TestBaseModel_save(unittest.TestCase):
+
+class TestAmenity_save(unittest.TestCase):
     """Unittests for save() method"""
 
     @classmethod
@@ -74,22 +77,23 @@ class TestBaseModel_save(unittest.TestCase):
             pass
 
     def test_save(self):
-        A = BaseModel()
+        A = Amenity()
         sleep(0.1)
         ua = A.updated_at
         A.save()
         self.assertLess(ua, A.updated_at)
 
     def test_arg(self):
-        A = BaseModel()
+        A = Amenity()
         with self.assertRaises(TypeError):
             A.save(None)
 
     def test_file(self):
-        A = BaseModel()
+        A = Amenity()
         A.save()
         with open("file.json", "r") as f:
-            self.assertIn("BaseModel." + A.id, f.read())
+            self.assertIn("Amenity." + A.id, f.read())
+
 
 if __name__ == "__main__":
     unittest.main()
