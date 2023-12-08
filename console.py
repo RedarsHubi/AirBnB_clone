@@ -3,6 +3,7 @@
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -48,6 +49,25 @@ class HBNBCommand(cmd.Cmd):
             for key, value in all_objs.items():
                 if value.id == a[1].strip():
                     print(value)
+                    return
+            print("** no instance found **")
+
+    def do_destroy(self, args):
+        """ destroys an instance of class"""
+        a = args.split()
+        if not args:
+            print("** class name missing **")
+        elif a[0] not in HBNBCommand.all_classes:
+            print("** class doesn't exist **")
+        elif len(a) == 1:
+            print("** instance id missing **")
+        else:
+            all_objs = storage.all()
+            for key, value in all_objs.items():
+                if value.id == a[1].strip():
+                    del(value)
+                    del storage._FileStorage__objects[key]
+                    storage.save()
                     return
             print("** no instance found **")
 
