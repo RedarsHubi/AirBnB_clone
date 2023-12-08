@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ class city"""
 
-from models import storage
 from models.base_model import BaseModel
 
 

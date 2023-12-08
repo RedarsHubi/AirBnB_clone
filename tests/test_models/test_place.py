@@ -3,6 +3,7 @@
 Unittest for place.py
 """
 import unittest
+import models
 from models.place import Place
 import datetime
 
